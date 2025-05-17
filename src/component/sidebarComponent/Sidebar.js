@@ -21,6 +21,7 @@ function Sidebar() {
     const [channels, setChannels] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [channelName, setChannelName] = useState('');
+    const [showOptions, setShowOptions] = useState(true); // for show less/more
     const [{ user }] = useStateValue();
 
     const handleAddChannel = async () => {
@@ -62,13 +63,20 @@ function Sidebar() {
                 <CreateIcon />
             </div>
 
-            <SidebarOption Icon={CommentIcon} title="Threads" />
-            <SidebarOption Icon={YouTubeIcon} title="Youtube" />
-            <SidebarOption Icon={InstagramIcon} title="Instagram" />
-            <SidebarOption Icon={DraftsIcon} title="Important" />
-            <SidebarOption Icon={FacebookIcon} title="Facebook" />
-            <SidebarOption Icon={PeopleAltIcon} title="The New Force" />
-            <SidebarOption Icon={ExpandLessIcon} title="Show less" />
+            <div className={`sidebar__options-group${showOptions ? '' : ' hide'}`}>
+                <SidebarOption Icon={CommentIcon} title="Threads" />
+                <SidebarOption Icon={YouTubeIcon} title="Youtube" />
+                <SidebarOption Icon={InstagramIcon} title="Instagram" />
+                <SidebarOption Icon={DraftsIcon} title="Important" />
+                <SidebarOption Icon={FacebookIcon} title="Facebook" />
+                <SidebarOption Icon={PeopleAltIcon} title="The New Force" />
+            </div>
+            <SidebarOption
+                Icon={showOptions ? ExpandLessIcon : ExpandMoreIcon}
+                title={showOptions ? "Show less" : "Show more"}
+                onClick={() => setShowOptions((prev) => !prev)}
+                className="show-toggle"
+            />
             <hr />
             <SidebarOption Icon={ExpandMoreIcon} title="Channels" />
             <hr />

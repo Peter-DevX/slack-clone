@@ -4,10 +4,14 @@ import { useNavigate } from 'react-router-dom';
 // import { db } from '../../firebase';
 // import { collection, addDoc } from 'firebase/firestore';
 
-function SidebarOption({ Icon, title, id, addChannelOption, onClick }) {
+function SidebarOption({ Icon, title, id, addChannelOption, onClick, className }) {
     const navigate = useNavigate();
 
     const selectChannel = () => {
+        if (onClick) {
+            onClick();
+            return;
+        }
         if (addChannelOption) {
             onClick?.(); // trigger modal
         } else if (id) {
@@ -18,7 +22,7 @@ function SidebarOption({ Icon, title, id, addChannelOption, onClick }) {
     };
 
     return (
-        <div className="sidebarOption" onClick={selectChannel}>
+        <div className={`sidebarOption${className ? ' ' + className : ''}`} onClick={selectChannel}>
             {Icon && <Icon className="sidebarOption__icon" />}
             {Icon ? (
                 <h3>{title}</h3>
